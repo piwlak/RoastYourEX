@@ -20,7 +20,8 @@ class PostFirebase {
     return Post!.doc(id).delete();
   }
 
-  Stream<QuerySnapshot> getAllPost() {
-    return Post!.snapshots();
+  Stream<QuerySnapshot> getAllPost(
+      {String field = 'postTime', bool descending = true}) {
+    return Post!.orderBy(field, descending: descending).snapshots();
   }
 }
