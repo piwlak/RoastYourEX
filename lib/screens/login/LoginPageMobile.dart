@@ -5,7 +5,6 @@ import 'package:roastyourex/firebase/github_auth.dart';
 import 'package:social_login_buttons/social_login_buttons.dart';
 import '../../firebase/email_auth.dart';
 import '../../firebase/google_auth.dart';
-import '../../firebase/facebook_auth.dart';
 import '../../widgets/header_widget.dart';
 import 'forgot_password_page.dart';
 import 'registration_page.dart';
@@ -23,7 +22,6 @@ class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
   EmailAuth? auth = EmailAuth();
   GoogleAuth googleAuth = GoogleAuth();
-  FaceAuth faceAuth = FaceAuth();
   GitAuth githubAuth = GitAuth();
   TextEditingController mail = TextEditingController();
   TextEditingController password = TextEditingController();
@@ -148,8 +146,11 @@ class _LoginPageState extends State<LoginPage> {
                                                 password: password.text)
                                             .then((value) {
                                           if (value) {
-                                            Navigator.of(context)
-                                                .pushNamed('/profile');
+                                            Navigator.pushNamedAndRemoveUntil(
+                                              context,
+                                              'Home',
+                                              (route) => false,
+                                            );
                                             ScaffoldMessenger.of(context)
                                                 .showSnackBar(
                                               const SnackBar(
@@ -203,33 +204,6 @@ class _LoginPageState extends State<LoginPage> {
                                     ),
                                   ])),
                                 ),
-                                Container(
-                                  child: SocialLoginButton(
-                                    borderRadius: 40,
-                                    buttonType: SocialLoginButtonType.facebook,
-                                    onPressed: () async {
-                                      isLoading = true;
-                                      setState(() {});
-                                      faceAuth
-                                          .signInWithFacebook()
-                                          .then((value) {
-                                        if (value.name != null) {
-                                          Navigator.pushNamed(
-                                              context, '/profile',
-                                              arguments: value);
-                                          isLoading = false;
-                                        } else {
-                                          isLoading = false;
-                                          SnackBar(
-                                            content: Text(
-                                                'Verifica tus credenciales'),
-                                          );
-                                        }
-                                        setState(() {});
-                                      });
-                                    },
-                                  ),
-                                ),
                                 SizedBox(height: 15),
                                 Container(
                                   child: SocialLoginButton(
@@ -243,9 +217,11 @@ class _LoginPageState extends State<LoginPage> {
                                           .then((value) {
                                         if (value.name != null) {
                                           isLoading = false;
-                                          Navigator.pushNamed(
-                                              context, '/profile',
-                                              arguments: value);
+                                          Navigator.pushNamedAndRemoveUntil(
+                                            context,
+                                            'Home',
+                                            (route) => false,
+                                          );
                                         } else {
                                           isLoading = false;
                                           setState(() {});
@@ -269,8 +245,11 @@ class _LoginPageState extends State<LoginPage> {
                                           .signInWithGitHub(context)
                                           .then((value) {
                                         if (value) {
-                                          Navigator.pushNamed(
-                                              context, '/profile');
+                                          Navigator.pushNamedAndRemoveUntil(
+                                            context,
+                                            'Home',
+                                            (route) => false,
+                                          );
                                           isLoading = false;
                                         } else {
                                           isLoading = false;

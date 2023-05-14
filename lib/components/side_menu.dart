@@ -1,7 +1,9 @@
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:rive/rive.dart';
 import 'package:roastyourex/models/rive_asset.dart';
+import 'package:roastyourex/widgets/awesomeDialog_widget.dart';
 import 'package:roastyourex/widgets/rive_utils.dart';
 
 import 'info_card.dart';
@@ -20,6 +22,7 @@ class _SideMenuState extends State<SideMenu> {
   @override
   Widget build(BuildContext context) {
     final user = FirebaseAuth.instance.currentUser;
+    Awesome awesome = Awesome();
 
     return Scaffold(
       body: Container(
@@ -62,12 +65,35 @@ class _SideMenuState extends State<SideMenu> {
                     });
                     setState(() {
                       selectedMenu = menu;
-                      //Navigator.pushNamed(context, menu.title);
                       print(menu.title);
                     });
                   },
                   isActive: selectedMenu == menu,
                 ),
+              ),
+              SideMenuTile(
+                menu: sidemenu2,
+                riveonInit: (artboard) {},
+                press: () {
+                  try {
+                    awesome
+                        .buildDialog(
+                            context,
+                            DialogType.INFO_REVERSED,
+                            'Confirmar',
+                            '¿Realmente desea cerrar la sesión?',
+                            '/login',
+                            AnimType.BOTTOMSLIDE,
+                            true)
+                        .show()
+                        .then((value) {
+                      print(value);
+                    });
+                  } catch (e) {
+                    print(e);
+                  }
+                },
+                isActive: selectedMenu == sidemenu2,
               ),
             ],
           ),

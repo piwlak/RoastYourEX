@@ -40,31 +40,38 @@ List<RiveAsset> bottomNavs = [
 
 List<RiveAsset> sideMenus = [
   RiveAsset(
-    "assets/RiveAssets/icons.riv",
+    "assets/RiveAssets/icons2.riv",
     artboard: "HOME",
     stateMachineName: "HOME_interactivity",
     title: "Home",
   ),
   RiveAsset(
-    "assets/RiveAssets/icons.riv",
+    "assets/RiveAssets/icons2.riv",
     artboard: "SEARCH",
     stateMachineName: "SEARCH_Interactivity",
     title: "Search",
   ),
   RiveAsset(
-    "assets/RiveAssets/icons.riv",
+    "assets/RiveAssets/icons2.riv",
     artboard: "LIKE/STAR",
     stateMachineName: "STAR_Interactivity",
     title: "Favorites",
   ),
-  RiveAsset("assets/RiveAssets/icons.riv",
+  RiveAsset("assets/RiveAssets/icons2.riv",
       artboard: "USER",
       stateMachineName: "USER_Interactivity",
       title: "Profile"),
   RiveAsset(
-    "assets/RiveAssets/icons.riv",
+    "assets/RiveAssets/icons2.riv",
     artboard: "BELL",
     stateMachineName: "BELL_Interactivity",
     title: "Notification",
   ),
 ];
+
+RiveAsset sidemenu2 = RiveAsset(
+  "assets/RiveAssets/icons2.riv",
+  artboard: "EXIT",
+  stateMachineName: "state_machine",
+  title: "Log Out",
+);

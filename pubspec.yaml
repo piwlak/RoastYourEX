@@ -41,8 +41,5 @@ flutter:
   uses-material-design: true
 
   assets:
-    - assets/avaters/
-    - assets/Backgrounds/
     - assets/icons/
     - assets/RiveAssets/
-    - assets/images/

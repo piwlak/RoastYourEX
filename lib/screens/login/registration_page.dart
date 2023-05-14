@@ -7,7 +7,6 @@ import '../../widgets/header_widget.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'select_photo_options_screen.dart';
-import '../../firebase/facebook_auth.dart';
 import '../../firebase/google_auth.dart';
 
 class RegistrationPage extends StatefulWidget {
@@ -26,7 +25,6 @@ class _RegistrationPageState extends State<RegistrationPage> {
   File? _image;
   EmailAuth? auth = EmailAuth();
   GoogleAuth googleAuth = GoogleAuth();
-  FaceAuth faceAuth = FaceAuth();
 
   Future _pickImage(ImageSource source) async {
     try {
