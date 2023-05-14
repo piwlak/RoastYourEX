@@ -35,11 +35,11 @@ class ProfileCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: const [
                   AccountInfoChips(
-                    info: '35.5k Followers',
+                    info: '30M Followers',
                   ),
                   SizedBox(width: 10),
                   AccountInfoChips(
-                    info: '400 Followings',
+                    info: '1 Followings',
                   ),
                 ],
               ),

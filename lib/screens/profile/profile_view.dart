@@ -53,57 +53,46 @@ class _ProfileViewState extends State<ProfileView> {
                   stream: _Post.getAllPost(),
                   builder: (context, snapshot) {
                     if (snapshot.hasData) {
-                      return ListView.builder(
+                      return ListView.separated(
                         shrinkWrap: true,
                         padding: const EdgeInsets.symmetric(horizontal: 0),
                         physics: const NeverScrollableScrollPhysics(),
                         itemCount: snapshot.data!.docs.length,
                         itemBuilder: (context, index) {
-                          return ListView.separated(
-                              shrinkWrap: true,
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 0),
-                              physics: const NeverScrollableScrollPhysics(),
-                              itemCount: snapshot.data!.docs.length,
-                              itemBuilder: (context, index) {
-                                //tiempo
-                                DateStamp =
-                                    snapshot.data!.docs[index].get('postTime');
-                                dateTime = DateStamp.toDate();
-                                Duration difference =
-                                    DateTime.now().difference(dateTime);
-
-                                //
-                                createPost = PostModel(
-                                    id: snapshot.data!.docs[index].get('id'),
-                                    userImage: snapshot.data!.docs[index]
-                                        .get('userImage'),
-                                    userName: snapshot.data!.docs[index]
-                                        .get('userName'),
-                                    location: snapshot.data!.docs[index]
-                                        .get('location'),
-                                    postTime:
-                                        ('${difference.inMinutes % 60} minutos'),
-                                    description: snapshot.data!.docs[index]
-                                        .get('description'),
-                                    image:
-                                        snapshot.data!.docs[index].get('image'),
-                                    likes:
-                                        snapshot.data!.docs[index].get('likes'),
-                                    comments: snapshot.data!.docs[index]
-                                        .get('comments'));
-                                return PostCard(
-                                  post: createPost,
-                                  onTap: () {
-                                    Get.to(() => PostDetailPage(
-                                          post: createPost,
-                                        ));
-                                  },
-                                );
-                              },
-                              separatorBuilder: (context, index) =>
-                                  const SizedBox(height: 10));
+                          //tiempo
+                          DateStamp =
+                              snapshot.data!.docs[index].get('postTime');
+                          dateTime = DateStamp.toDate();
+                          Duration difference =
+                              DateTime.now().difference(dateTime);
+                          //
+                          createPost = PostModel(
+                              id: snapshot.data!.docs[index].get('id'),
+                              userImage:
+                                  snapshot.data!.docs[index].get('userImage'),
+                              userName:
+                                  snapshot.data!.docs[index].get('userName'),
+                              location:
+                                  snapshot.data!.docs[index].get('location'),
+                              postTime:
+                                  ('${difference.inMinutes % 60} minutos'),
+                              description:
+                                  snapshot.data!.docs[index].get('description'),
+                              image: snapshot.data!.docs[index].get('image'),
+                              likes: snapshot.data!.docs[index].get('likes'),
+                              comments:
+                                  snapshot.data!.docs[index].get('comments'));
+                          return PostCard(
+                            post: createPost,
+                            onTap: () {
+                              Get.to(() => PostDetailPage(
+                                    post: createPost,
+                                  ));
+                            },
+                          );
                         },
+                        separatorBuilder: (context, index) =>
+                            const SizedBox(height: 15),
                       );
                     } else if (snapshot.hasError) {
                       return const Center(
