@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:roastyourex/models/post_model.dart';
@@ -10,6 +11,18 @@ class PostCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Timestamp? timestamp = post.postTime;
+    DateTime dateTime = timestamp!.toDate();
+    Duration difference = DateTime.now().difference(dateTime);
+    String time;
+
+    if ((difference.inMinutes) < 60) {
+      time = '${difference.inMinutes} minutos';
+    } else if ((difference.inHours) < 24) {
+      time = '${difference.inHours} horas';
+    } else {
+      time = '${difference.inDays} días';
+    }
     return InkWell(
       onTap: onTap,
       child: Container(
@@ -43,7 +56,7 @@ class PostCard extends StatelessWidget {
                     ),
                     const SizedBox(height: 2),
                     Text(
-                      '${post.location} • ${post.postTime}',
+                      '${post.location} • hace ${time}',
                       style: const TextStyle(fontSize: 12, color: Colors.grey),
                     )
                   ],

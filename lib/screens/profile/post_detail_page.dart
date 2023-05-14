@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -14,6 +15,18 @@ class PostDetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Timestamp? timestamp = post.postTime;
+    DateTime dateTime = timestamp!.toDate();
+    Duration difference = DateTime.now().difference(dateTime);
+    String time;
+
+    if ((difference.inMinutes % 60) < 60) {
+      time = '${difference.inMinutes % 60} minutos';
+    } else if ((difference.inHours % 24) < 24) {
+      time = '${difference.inHours % 24} horas';
+    } else {
+      time = '${difference.inDays} días';
+    }
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
       appBar: AppBar(
@@ -104,7 +117,7 @@ class PostDetailPage extends StatelessWidget {
                   ),
                   const SizedBox(height: 2),
                   Text(
-                    '${post.location} • ${post.postTime}',
+                    '${post.location} • hace ${time}',
                     style: const TextStyle(fontSize: 12, color: Colors.grey),
                   )
                 ],

@@ -1,11 +1,11 @@
-import 'package:roastyourex/utils/assets.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class PostModel {
   int? id;
   String? userName;
   String? userImage;
   String? location;
-  String? postTime;
+  Timestamp? postTime;
   String? description;
   String? image;
   int? likes;
@@ -36,8 +36,21 @@ class PostModel {
         comments: map['comments']);
   }
 
-  PostModel.fromJson(Map<String, dynamic> json) {}
+  factory PostModel.fromFirestore(DocumentSnapshot doc) {
+    Map data = doc.data() as Map<String, dynamic>;
 
+    return PostModel(
+      id: data['id'] ?? 0,
+      userImage: data['userImage'] ?? '',
+      userName: data['userName'] ?? '',
+      location: data['location'] ?? '',
+      postTime: data['postTime'] ?? '',
+      description: data['description'] ?? '',
+      image: data['image'] ?? '',
+      likes: data['likes'] ?? 0,
+      comments: data['comments'] ?? 0,
+    );
+  }
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['id'] = this.id;
@@ -52,28 +65,3 @@ class PostModel {
     return data;
   }
 }
-
-List<PostModel> dummyPosts = [
-  PostModel(
-      id: 1,
-      userName: 'John Milke',
-      location: 'Berlin,Germany',
-      postTime: '5 min ago',
-      userImage: CustomAssets.kUser2,
-      description:
-          'At vero eos et accusamus et iusto odio dignissimos ducimus qui dolores et quas molestias excepturi sint occaecati cupiditate non provident',
-      image: CustomAssets.kPost1,
-      likes: 53,
-      comments: 103),
-  PostModel(
-      id: 1,
-      userName: 'Steve Douglas',
-      location: 'New york,USA',
-      postTime: '44m ago',
-      userImage: CustomAssets.kUser4,
-      description:
-          "Blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident",
-      image: CustomAssets.kPost2,
-      likes: 54,
-      comments: 10444),
-];
