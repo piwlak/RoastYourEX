@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "301126490242",
+    "project_id": "roast-your-ex",
+    "storage_bucket": "roast-your-ex.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:301126490242:android:b4b75989990ebaf0db3c9b",
+        "android_client_info": {
+          "package_name": "com.example.roastyourex"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "301126490242-cb4ls28ak4oae1e5kpjduk39gp0r6kq1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB57nkpLPYA3SycAvMAgEB4XjqMM2kz2Jk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "301126490242-cb4ls28ak4oae1e5kpjduk39gp0r6kq1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
