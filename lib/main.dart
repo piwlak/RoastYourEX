@@ -1,4 +1,5 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:roastyourex/routes.dart';
 import 'package:roastyourex/screens/splash_screen.dart';
@@ -8,10 +9,33 @@ import 'package:get/get.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  final fcmToken = await FirebaseMessaging.instance.getToken();
+  print(fcmToken);
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  Future<void> setupInteractedMessage() async {
+    RemoteMessage? initialMessage =
+        await FirebaseMessaging.instance.getInitialMessage();
+    if (initialMessage != null) {
+      _handlerMsgOpened(initialMessage);
+    }
+    FirebaseMessaging.onMessageOpenedApp.listen(_handlerMsgOpenBackground);
+  }
+
+  void _handlerMsgOpened(RemoteMessage message) {
+    print('EL MENSAJE HA SIDO ABIERTO');
+    _handleMsgOpen(message);
+  }
+
+  void _handlerMsgOpenBackground(RemoteMessage message) {
+    print('EL MENSAJE HA SIDO EN SEGUNDO PLANO');
+    _handleMsgOpen(message);
+  }
+
+  void _handleMsgOpen(RemoteMessage message) {}
+
   const MyApp({super.key});
 
   // This widget is the root of your application.
