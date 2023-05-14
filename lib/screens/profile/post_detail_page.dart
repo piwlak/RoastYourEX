@@ -20,10 +20,10 @@ class PostDetailPage extends StatelessWidget {
     Duration difference = DateTime.now().difference(dateTime);
     String time;
 
-    if ((difference.inMinutes % 60) < 60) {
-      time = '${difference.inMinutes % 60} minutos';
-    } else if ((difference.inHours % 24) < 24) {
-      time = '${difference.inHours % 24} horas';
+    if ((difference.inMinutes) < 60) {
+      time = '${difference.inMinutes} minutos';
+    } else if ((difference.inHours) < 24) {
+      time = '${difference.inHours} horas';
     } else {
       time = '${difference.inDays} días';
     }
