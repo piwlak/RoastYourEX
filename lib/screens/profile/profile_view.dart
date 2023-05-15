@@ -4,7 +4,6 @@ import 'package:roastyourex/models/post_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:get/get.dart';
-
 import 'components/post_card.dart';
 import 'components/profile_card.dart';
 import 'post_detail_page.dart';
@@ -26,6 +25,7 @@ class _ProfileViewState extends State<ProfileView> {
     return Scaffold(
         backgroundColor: Theme.of(context).colorScheme.background,
         appBar: AppBar(
+          centerTitle: true,
           elevation: 0,
           backgroundColor: Theme.of(context).colorScheme.background,
           title: Text("Profile",

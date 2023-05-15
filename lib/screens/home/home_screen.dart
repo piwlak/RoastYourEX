@@ -54,6 +54,9 @@ class _HomeScreenState extends State<HomeScreen> {
               padding: const EdgeInsets.all(14.0),
             ),
           ],
+          leading: Padding(
+            padding: const EdgeInsets.all(14.0),
+          ),
         ),
         body: AnimationLimiter(
           child: ListView(

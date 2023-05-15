@@ -64,4 +64,18 @@ class PostModel {
     data['comments'] = this.comments;
     return data;
   }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'userName': userName,
+      'userImage': userImage,
+      'location': location,
+      'postTime': postTime,
+      'description': description,
+      'image': image,
+      'likes': likes,
+      'comments': comments,
+    };
+  }
 }

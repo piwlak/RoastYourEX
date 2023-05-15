@@ -65,7 +65,6 @@ class _SideMenuState extends State<SideMenu> {
                     });
                     setState(() {
                       selectedMenu = menu;
-                      print(menu.title);
                     });
                   },
                   isActive: selectedMenu == menu,
@@ -86,9 +85,7 @@ class _SideMenuState extends State<SideMenu> {
                             AnimType.BOTTOMSLIDE,
                             true)
                         .show()
-                        .then((value) {
-                      print(value);
-                    });
+                        .then((value) {});
                   } catch (e) {
                     print(e);
                   }

@@ -31,6 +31,11 @@ dependencies:
   sqflite: ^2.2.8+2
   cloud_firestore: ^4.7.0
   firebase_storage: ^11.2.0
+  firebase_database: ^10.2.0
+  geolocator: ^9.0.2
+  geocoding: ^2.1.0
+
+
 
 dev_dependencies:
   flutter_test:
@@ -43,3 +48,4 @@ flutter:
   assets:
     - assets/icons/
     - assets/RiveAssets/
+    - assets/images/

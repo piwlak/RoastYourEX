@@ -297,11 +297,6 @@ class _RegistrationPageState extends State<RegistrationPage> {
                             },
                           ),
                         ),
-                        SizedBox(height: 30.0),
-                        Text(
-                          "Or create account using social media",
-                          style: TextStyle(color: Colors.grey),
-                        ),
                       ],
                     ),
                   ),

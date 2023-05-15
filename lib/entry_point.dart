@@ -1,5 +1,6 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:roastyourex/screens/post/addpost.dart';
 import 'package:roastyourex/screens/profile/profile_view.dart';
 import 'package:rive/rive.dart';
 import 'package:roastyourex/components/side_menu.dart';
@@ -31,7 +32,7 @@ class _EntryPointState extends State<EntryPoint>
   int selectedIndex = 0;
   List<Widget> pages = [
     HomeScreen(),
-    Container(),
+    addPost(),
     Container(),
     Container(),
     ProfileView(),
