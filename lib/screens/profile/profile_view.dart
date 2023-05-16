@@ -77,7 +77,7 @@ class _ProfileViewState extends State<ProfileView> {
                       );
                     } else if (snapshot.hasError) {
                       return const Center(
-                        child: Text('Error en la peticion, intente de nuevo'),
+                        child: Text('Error en la petición, intente de nuevo'),
                       );
                     } else {
                       return Center(

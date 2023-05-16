@@ -96,7 +96,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       );
                     } else if (snapshot.hasError) {
                       return const Center(
-                        child: Text('Error en la peticion, intente de nuevo'),
+                        child: Text('Error en la petición, intente de nuevo'),
                       );
                     } else {
                       return Center(
