@@ -1,18 +1,76 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:roastyourex/routes.dart';
 import 'package:roastyourex/screens/splash_screen.dart';
 import 'package:theme_provider/theme_provider.dart';
 import 'package:get/get.dart';
 
+Future<void> firebaseMsgSegundoPlanoHandler(RemoteMessage message) async {
+  await Firebase.initializeApp();
+  print('BK MESSAGE WITH ID:  ${message.messageId}');
+}
+
+void _firebaseMsgPrimerPlanoHandler(RemoteMessage message) {
+  print('Got a message whilst in the foreground!');
+  print('Message data: ${message.data}');
+
+  if (message.notification != null) {
+    print('Message also contained a notification: ${message.notification}');
+  }
+}
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+
+  FirebaseMessaging.onBackgroundMessage(firebaseMsgSegundoPlanoHandler);
+  FirebaseMessaging.onMessage.listen(_firebaseMsgPrimerPlanoHandler);
+
+  final fcmToken = await FirebaseMessaging.instance.getToken();
+  print(fcmToken);
+  await FirebaseMessaging.instance.setAutoInitEnabled(true);
+  FirebaseMessaging.instance.onTokenRefresh
+      .listen((fcmToken) {})
+      .onError((err) {});
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  Future<void> setupInteractedMessage() async {
+    RemoteMessage? initialMessage = 
+        await FirebaseMessaging.instance.getInitialMessage();
+    if (initialMessage != null) {
+      _handlerMsgOpened(initialMessage);
+    }
+
+    FirebaseMessaging.onMessageOpenedApp.listen(_handlerMsgOpenBackground);
+  }
+
+  void _handlerMsgOpened(RemoteMessage message) {
+    print('EL MENSAJE HA SIDO ABIERTO');
+    _handleMsgOpen(message);
+  }
+
+  void _handlerMsgOpenBackground(RemoteMessage message) {
+    print('EL MENSAJE HA SIDO EN SEGUNDO PLANO');
+    _handleMsgOpen(message);
+  }
+
+  void _handleMsgOpen(RemoteMessage message) {}
+
+  @override
+  void initState() {
+    super.initState();
+    setupInteractedMessage();
+  }
 
   // This widget is the root of your application.
   @override
