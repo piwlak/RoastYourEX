@@ -5,7 +5,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 class GoogleAuth {
   final GoogleSignIn _googleSignIn = GoogleSignIn();
   Future<Usuario> signInWithGoogle() async {
-    this.signOutWithGoogle();
+    signOutWithGoogle();
     try {
       final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
       final GoogleSignInAuthentication googleAuth =
@@ -19,13 +19,13 @@ class GoogleAuth {
       Usuario user = Usuario.fromFirebaseUser(userCredential.user!);
       return user;
     } catch (e) {
-      print(e);
+      e;
       return Usuario(name: null);
     }
   }
 
   Future<int> registerWithGoogle() async {
-    this.signOutWithGoogle();
+    signOutWithGoogle();
     try {
       final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
       final GoogleSignInAuthentication googleAuth =
@@ -41,7 +41,6 @@ class GoogleAuth {
       );
       await userCredential.user!.linkWithCredential(credential);
       userCredential.user!.sendEmailVerification();
-      print('User registered: ${userCredential.user}');
       return 1;
     } catch (e) {
       if (e.toString().contains('already')) {
@@ -58,7 +57,6 @@ class GoogleAuth {
       await FirebaseAuth.instance.signOut();
       return true;
     } catch (e) {
-      print(e);
       return false;
     }
   }

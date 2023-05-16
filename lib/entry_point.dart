@@ -32,10 +32,10 @@ class _EntryPointState extends State<EntryPoint>
   int selectedIndex = 0;
   List<Widget> pages = [
     HomeScreen(),
-    AddPostScreen(),
+    const AddPostScreen(),
     Container(),
     Container(),
-    ProfileView(),
+    const ProfileView(),
   ];
 
   @override
@@ -91,7 +91,7 @@ class _EntryPointState extends State<EntryPoint>
               child: Transform.scale(
                 scale: scalAnimation.value,
                 child: ClipRRect(
-                  borderRadius: BorderRadius.all(Radius.circular(24)),
+                  borderRadius: const BorderRadius.all(Radius.circular(24)),
                   child: pages[selectedIndex],
                 ),
               ),
@@ -99,7 +99,7 @@ class _EntryPointState extends State<EntryPoint>
           ),
           // As you can see it's an ANimated button
           AnimatedPositioned(
-            duration: Duration(milliseconds: 200),
+            duration: const Duration(milliseconds: 200),
             curve: Curves.fastOutSlowIn,
             left: isSideMenuClosed ? 0 : 220,
             top: 16,
@@ -150,7 +150,6 @@ class _EntryPointState extends State<EntryPoint>
                         setState(() {
                           selectedBottomNav = bottomNavs[index];
                           selectedIndex = index;
-                          print(index);
                         });
                       }
                       Future.delayed(const Duration(seconds: 1), () {

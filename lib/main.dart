@@ -2,7 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:roastyourex/routes.dart';
-import 'package:roastyourex/screens/splash_screen.dart';
+import 'package:roastyourex/screens/onboding/onboding_screen.dart';
 import 'package:theme_provider/theme_provider.dart';
 import 'package:get/get.dart';
 
@@ -114,8 +114,8 @@ class _MyAppState extends State<MyApp> {
             title: 'Roast Your EX',
             debugShowCheckedModeBanner: false,
             routes: getApplicationRoutes(),
-            initialRoute: Route_SplasScreen,
-            home: SplashScreen(),
+            initialRoute: Route_OnBoardScreen,
+            home: OnboardingScreen(),
           ),
         ),
       ),

@@ -87,7 +87,7 @@ class _SideMenuState extends State<SideMenu> {
                         .show()
                         .then((value) {});
                   } catch (e) {
-                    print(e);
+                    e;
                   }
                 },
                 isActive: selectedMenu == sidemenu2,

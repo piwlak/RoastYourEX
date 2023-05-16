@@ -15,7 +15,7 @@ const String Route_registration = '/registration';
 const String Route_forgotPass = '/forgotPass';
 const String Route_verificationPass = '/verificationPass';
 const String Route_SplasScreen = '/SplashScreen';
-const String Route_OnBoardScreen = '/onBoard';
+const String Route_OnBoardScreen = 'onBoard';
 const String Home = 'Home';
 const String Profile = 'Profile';
 const String Search = 'Search';
@@ -35,6 +35,6 @@ Map<String, WidgetBuilder> getApplicationRoutes() {
     '/SplashScreen': (BuildContext context) => SplashScreen(),
     '/verificationPass': (BuildContext context) =>
         ForgotPasswordVerificationPage(),
-    '/onBorard': (BuildContext context) => OnboardingScreen(),
+    'onBorard': (BuildContext context) => OnboardingScreen(),
   };
 }
