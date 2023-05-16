@@ -70,7 +70,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                           ),
                           SizedBox(height: 16),
                           Text(
-                            "En la vida nos topamos muchas personas que por alguna razon no funciono, pero eso no significa que todo acabo, con esta app podras ayuar a la gente a saber como son las personas en base a tu experiencias. Ayudando a que conecten mejor o a prevenir alguna situacion",
+                            "En la vida nos topamos muchas personas que por alguna razón no funciono, pero eso no significa que todo acabo, con esta aplicación podrás ayudar a la gente a saber cómo son las personas en base a tus experiencias. Ayudando a que conecten mejor o a prevenir alguna situación",
                             style: TextStyle(
                                 color: Colors
                                     .white //Theme.of(context).colorScheme.onBackground
@@ -99,7 +99,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     ),
                     const Padding(
                       padding: EdgeInsets.symmetric(vertical: 24),
-                      child: Text("Ayudarlo🤍 o Quemarlo🔥  tu decies😉",
+                      child: Text("Ayudarlo🤍 o Quemarlo🔥  Tú decides😉",
                           style: TextStyle(
                               color: Colors
                                   .white //Theme.of(context).colorScheme.onBackground
