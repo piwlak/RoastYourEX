@@ -32,7 +32,7 @@ class _EntryPointState extends State<EntryPoint>
   int selectedIndex = 0;
   List<Widget> pages = [
     HomeScreen(),
-    addPost(),
+    AddPostScreen(),
     Container(),
     Container(),
     ProfileView(),

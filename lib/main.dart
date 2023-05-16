@@ -45,7 +45,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   Future<void> setupInteractedMessage() async {
-    RemoteMessage? initialMessage = 
+    RemoteMessage? initialMessage =
         await FirebaseMessaging.instance.getInitialMessage();
     if (initialMessage != null) {
       _handlerMsgOpened(initialMessage);
@@ -114,7 +114,7 @@ class _MyAppState extends State<MyApp> {
             title: 'Roast Your EX',
             debugShowCheckedModeBanner: false,
             routes: getApplicationRoutes(),
-            initialRoute: Route_login,
+            initialRoute: Route_SplasScreen,
             home: SplashScreen(),
           ),
         ),
