@@ -4,6 +4,8 @@ import 'package:flutter_svg/svg.dart';
 import 'package:roastyourex/models/post_model.dart';
 import 'package:roastyourex/utils/assets.dart';
 
+import 'floatingProfle.dart';
+
 class PostCard extends StatelessWidget {
   final PostModel post;
   final VoidCallback onTap;
@@ -34,14 +36,28 @@ class PostCard extends StatelessWidget {
           children: [
             Row(
               children: [
-                Container(
-                  height: 35,
-                  width: 35,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(5),
-                      image: DecorationImage(
-                          image: NetworkImage(post.userImage!),
-                          fit: BoxFit.cover)),
+                GestureDetector(
+                  child: Container(
+                    height: 35,
+                    width: 35,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(5),
+                        image: DecorationImage(
+                            image: NetworkImage(post.userImage!),
+                            fit: BoxFit.cover)),
+                  ),
+                  onTap: () {
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return MyAlertDialog(
+                          userId: post.userId!,
+                          userName: post.userName!,
+                          userPhoto: post.userImage!,
+                        );
+                      },
+                    );
+                  },
                 ),
                 const SizedBox(width: 10),
                 Column(

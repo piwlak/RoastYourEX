@@ -2,8 +2,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:roastyourex/firebase/flags_DB.dart';
 import 'package:roastyourex/models/flagmodel.dart';
-import 'redflag.dart';
-import 'greenflag.dart';
+import 'addchip.dart';
+import 'redchip.dart';
+import 'greenchip.dart';
 
 class ProfileCard extends StatefulWidget {
   const ProfileCard({super.key});
@@ -36,6 +37,11 @@ class _ProfileCardState extends State<ProfileCard> {
                     color: Theme.of(context).colorScheme.onBackground,
                     fontSize: 18,
                     fontWeight: FontWeight.w600),
+              ),
+              const SizedBox(height: 10),
+              GestureDetector(
+                child: FollowChip(),
+                onTap: () {},
               ),
               const SizedBox(height: 10),
               Row(

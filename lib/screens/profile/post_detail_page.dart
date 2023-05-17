@@ -5,6 +5,8 @@ import 'package:get/get.dart';
 import 'package:roastyourex/models/post_model.dart';
 import 'package:roastyourex/utils/assets.dart';
 
+import 'components/floatingProfle.dart';
+
 // ignore: must_be_immutable
 class PostDetailPage extends StatelessWidget {
   PostModel post;
@@ -95,14 +97,28 @@ class PostDetailPage extends StatelessWidget {
           const SizedBox(height: 30),
           Row(
             children: [
-              Container(
-                height: 35,
-                width: 35,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(5),
-                    image: DecorationImage(
-                        image: NetworkImage(post.userImage!),
-                        fit: BoxFit.cover)),
+              GestureDetector(
+                child: Container(
+                  height: 35,
+                  width: 35,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(5),
+                      image: DecorationImage(
+                          image: NetworkImage(post.userImage!),
+                          fit: BoxFit.cover)),
+                ),
+                onTap: () {
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return MyAlertDialog(
+                        userId: post.userId!,
+                        userName: post.userName!,
+                        userPhoto: post.userImage!,
+                      );
+                    },
+                  );
+                },
               ),
               const SizedBox(width: 10),
               Column(
