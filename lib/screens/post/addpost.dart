@@ -133,6 +133,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
       userImage: _user!.photoURL,
       userName: _user!.displayName,
       location: pos,
+      userId: _user!.uid,
       postTime: timestamp,
       description: _txtdescription.text,
       image: downloadUrl,

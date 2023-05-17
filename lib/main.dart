@@ -90,7 +90,7 @@ class _MyAppState extends State<MyApp> {
                     onPrimary: const Color.fromARGB(255, 255, 255, 255),
                     background: const Color.fromARGB(255, 0, 0, 0),
                     onBackground: const Color.fromARGB(255, 255, 255, 255),
-                    onSecondary: Color.fromARGB(255, 0, 13, 78),
+                    onSecondary: const Color.fromARGB(255, 0, 13, 78),
                     shadow: const Color.fromARGB(255, 255, 255, 255),
                     onPrimaryContainer:
                         const Color.fromARGB(255, 7, 255, 234)))),
@@ -99,13 +99,14 @@ class _MyAppState extends State<MyApp> {
             description: "My Custom Theme", // Description of theme
             data: ThemeData.from(
                 colorScheme: Theme.of(context).colorScheme.copyWith(
-                    primary: Color.fromARGB(255, 255, 130, 57),
+                    primary: const Color.fromARGB(255, 255, 130, 57),
                     onPrimary: const Color.fromARGB(255, 255, 255, 255),
                     background: const Color.fromARGB(255, 255, 255, 255),
                     onBackground: const Color.fromARGB(255, 0, 0, 0),
-                    secondary: Color.fromARGB(255, 231, 16, 16),
-                    onSecondary: Color.fromARGB(255, 187, 38, 38),
-                    onPrimaryContainer: Color.fromARGB(255, 231, 36, 36)))),
+                    secondary: const Color.fromARGB(255, 231, 16, 16),
+                    onSecondary: const Color.fromARGB(255, 187, 38, 38),
+                    onPrimaryContainer:
+                        const Color.fromARGB(255, 231, 36, 36)))),
       ],
       child: ThemeConsumer(
         child: Builder(
@@ -115,7 +116,7 @@ class _MyAppState extends State<MyApp> {
             debugShowCheckedModeBanner: false,
             routes: getApplicationRoutes(),
             initialRoute: Route_OnBoardScreen,
-            home: OnboardingScreen(),
+            home: const OnboardingScreen(),
           ),
         ),
       ),

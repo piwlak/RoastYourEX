@@ -5,6 +5,7 @@ class PostModel {
   String? userName;
   String? userImage;
   String? location;
+  String? userId;
   Timestamp? postTime;
   String? description;
   String? image;
@@ -16,6 +17,7 @@ class PostModel {
     required this.userImage,
     required this.userName,
     required this.location,
+    required this.userId,
     required this.postTime,
     required this.description,
     required this.image,
@@ -29,6 +31,7 @@ class PostModel {
         userImage: map['userImage'],
         userName: map['userName'],
         location: map['location'],
+        userId: map['userId'],
         postTime: map['postTime'],
         description: map['description'],
         image: map['image'],
@@ -44,6 +47,7 @@ class PostModel {
       userImage: data['userImage'] ?? '',
       userName: data['userName'] ?? '',
       location: data['location'] ?? '',
+      userId: data['userId'] ?? '',
       postTime: data['postTime'] ?? '',
       description: data['description'] ?? '',
       image: data['image'] ?? '',

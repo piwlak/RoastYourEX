@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:roastyourex/models/flagmodel.dart';
 
-class AccountInfoChips extends StatelessWidget {
-  final String info;
-  const AccountInfoChips({super.key, required this.info});
+class RedFlag extends StatelessWidget {
+  final FlagModel flag;
+  const RedFlag({super.key, required this.flag});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-          color: Colors.blue.withOpacity(0.1),
+          color: Color.fromARGB(255, 245, 91, 91),
           borderRadius: BorderRadius.circular(25)),
       padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
       child: Center(
           child: Text(
-        info,
-        style: TextStyle(
-            color: Theme.of(context).colorScheme.onBackground, fontSize: 12),
+        flag.info!,
+        style: TextStyle(color: Colors.black, fontSize: 14),
       )),
     );
   }
