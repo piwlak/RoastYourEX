@@ -1,17 +1,29 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
-import 'package:roastyourex/firebase/notificationsService.dart';
+import 'package:roastyourex/firebase/localNotifications.dart';
+import 'package:roastyourex/firebase/notifications.dart';
 import 'package:roastyourex/routes.dart';
 import 'package:roastyourex/screens/onboding/onboding_screen.dart';
 import 'package:theme_provider/theme_provider.dart';
 import 'package:get/get.dart';
 
+Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  await Firebase.initializeApp();
+  print('Handling a background message: ${message.messageId}');
+  // Puedes realizar acciones adicionales según tus necesidades
+}
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  await PushNotification.InitApp();
-  await FirebaseMessaging.instance.setAutoInitEnabled(true);
+
+  String? fcmKey = await getToken();
+  print('TOKEN ID FMC ---- $fcmKey');
+
+  NotificationService.initialize();
+  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+
   runApp(const MyApp());
 }
 
@@ -24,14 +36,24 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   @override
-  void initState(){
-    super.initState();
-    PushNotification.messageStream.listen((message) { 
-      //Navigator.pushNamed(context, );
-      print('MyApp: $message');
+  void initState() {
+    FirebaseMessaging.instance
+        .requestPermission(sound: true, badge: true, alert: true);
+
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+      RemoteNotification? notification = message.notification;
+      if (notification != null) {
+        NotificationService.showNotification(
+          title: notification.title,
+          body: notification.body,
+        );
+      }
     });
+
+    super.initState();
   }
-    // This widget is the root of your application.
+
+  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return ThemeProvider(
