@@ -111,6 +111,7 @@ class PostDetailPage extends StatelessWidget {
                   showDialog(
                     context: context,
                     builder: (BuildContext context) {
+                      print(post.userId);
                       return MyAlertDialog(
                         userId: post.userId!,
                         userName: post.userName!,
@@ -181,81 +182,6 @@ class PostDetailPage extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 20),
-          Text(
-            "All Comments",
-            style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.w600,
-                color: Theme.of(context).colorScheme.onBackground),
-          ),
-          const SizedBox(height: 10),
-          ListView.separated(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              itemBuilder: (context, index) {
-                return Container(
-                  padding: const EdgeInsets.all(10),
-                  decoration: BoxDecoration(
-                      color: Colors.grey.withOpacity(0.1),
-                      borderRadius: BorderRadius.circular(10)),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        children: [
-                          Container(
-                            height: 30,
-                            width: 30,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(5),
-                                image: DecorationImage(
-                                    image: AssetImage(CustomAssets.kUser4),
-                                    fit: BoxFit.cover)),
-                          ),
-                          const SizedBox(width: 10),
-                          Text(
-                            "Steve John • ",
-                            style: TextStyle(
-                                fontWeight: FontWeight.w600,
-                                color:
-                                    Theme.of(context).colorScheme.onBackground),
-                          ),
-                          Text(
-                            "5m ago",
-                            style: TextStyle(
-                                color:
-                                    Theme.of(context).colorScheme.onBackground),
-                          )
-                        ],
-                      ),
-                      const SizedBox(height: 10),
-                      Text(
-                        post.description!,
-                        style: TextStyle(
-                            color: Theme.of(context).colorScheme.onBackground),
-                      ),
-                      const SizedBox(height: 10),
-                      Row(
-                        children: [
-                          SvgPicture.asset(
-                            CustomAssets.kHeart,
-                            color: Theme.of(context).colorScheme.onBackground,
-                          ),
-                          const SizedBox(width: 2),
-                          Text(
-                            '${post.likes.toString()}k',
-                            style: TextStyle(
-                                color:
-                                    Theme.of(context).colorScheme.onBackground),
-                          ),
-                        ],
-                      )
-                    ],
-                  ),
-                );
-              },
-              separatorBuilder: (context, index) => const SizedBox(height: 10),
-              itemCount: 2)
         ],
       ),
     );

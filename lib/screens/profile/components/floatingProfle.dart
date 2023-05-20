@@ -80,6 +80,8 @@ class _MyAlertDialogState extends State<MyAlertDialog> {
                                                 widget.userId),
                                             builder: (context, snapshot) {
                                               if (snapshot.hasData) {
+                                                // print(widget.userId);
+                                                // print(widget.userName);
                                                 final greenflags = snapshot
                                                     .data!.docs
                                                     .map((doc) =>

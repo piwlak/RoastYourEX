@@ -66,7 +66,12 @@ class _ProfileCardState extends State<ProfileCard> {
                                   itemCount: snapshot.data!.docs.length,
                                   itemBuilder: (context, index) {
                                     final greenflag = greenflags;
-                                    return GreenFlag(flag: greenflag[index]);
+                                    return Column(
+                                      children: [
+                                        GreenFlag(flag: greenflag[index]),
+                                        SizedBox(height: 10),
+                                      ],
+                                    );
                                   },
                                 );
                               } else if (snapshot.hasError) {
@@ -102,7 +107,12 @@ class _ProfileCardState extends State<ProfileCard> {
                                   itemCount: snapshot.data!.docs.length,
                                   itemBuilder: (context, index) {
                                     final redflag = redflags;
-                                    return RedFlag(flag: redflag[index]);
+                                    return Column(
+                                      children: [
+                                        RedFlag(flag: redflag[index]),
+                                        SizedBox(height: 10),
+                                      ],
+                                    );
                                   },
                                 );
                               } else if (snapshot.hasError) {

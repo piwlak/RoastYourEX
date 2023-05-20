@@ -75,6 +75,7 @@ class PostModel {
       'userName': userName,
       'userImage': userImage,
       'location': location,
+      'userId': userId,
       'postTime': postTime,
       'description': description,
       'image': image,

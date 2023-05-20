@@ -25,7 +25,7 @@ class AddPostScreen extends StatefulWidget {
 class _AddPostScreenState extends State<AddPostScreen> {
   FirebaseFirestore _firestore = FirebaseFirestore.instance;
   FirebaseStorage _storage = FirebaseStorage.instance;
-  final User? _user = FirebaseAuth.instance.currentUser;
+  User? _user = FirebaseAuth.instance.currentUser;
   Awesome _awesome = Awesome();
 
   TextEditingController _txtdescription = TextEditingController();
@@ -127,6 +127,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
     Position position = await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.high);
     String pos = await _getCityAndCountry(position);
+    print(_user!.uid);
 
     PostModel post = PostModel(
       id: random.nextInt(999999),

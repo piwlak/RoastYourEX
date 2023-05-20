@@ -1,7 +1,4 @@
 import 'dart:async';
-import 'dart:js_util';
-
-import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 
 class PushNotification {
@@ -14,7 +11,7 @@ class PushNotification {
   static Future InitApp() async {
     //push-- 2do plano
     //await Firebase.initializeApp();
-messaging.requestPermission();
+    messaging.requestPermission();
     token = await FirebaseMessaging.instance.getToken();
     print('TOKEN:   $token');
 
@@ -26,16 +23,9 @@ messaging.requestPermission();
     //local-- 1er plano
   }
 
-
-
-
-
-
-
   static Future<void> _notBackGroundHandler(RemoteMessage message) async {
     print('BK MESSAGE WITH ID:  ${message.messageId}');
     _mssgStream.add(message.notification?.title ?? 'no title');
-    
   }
 
   static Future<void> _onMessageHandler(RemoteMessage message) async {
