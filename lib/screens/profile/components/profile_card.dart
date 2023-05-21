@@ -41,7 +41,8 @@ class _ProfileCardState extends State<ProfileCard> {
               const SizedBox(height: 10),
               GestureDetector(
                 child: FollowChip(),
-                onTap: () {},
+                onTap: () {
+                },
               ),
               const SizedBox(height: 10),
               Row(
