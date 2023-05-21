@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:roastyourex/firebase/flags_DB.dart';
+import 'package:roastyourex/firebase/susciption.dart';
 import 'package:roastyourex/models/flagmodel.dart';
 
 import 'addchip.dart';
@@ -23,6 +24,8 @@ class MyAlertDialog extends StatefulWidget {
 
 class _MyAlertDialogState extends State<MyAlertDialog> {
   FlagFirebase _Flag = FlagFirebase();
+
+   bool isFollowing = false;
 
   @override
   Widget build(BuildContext context) {
@@ -60,8 +63,13 @@ class _MyAlertDialogState extends State<MyAlertDialog> {
                             ),
                             const SizedBox(height: 10),
                             GestureDetector(
-                              child: FollowChip(),
-                              onTap: () {},
+                              child: const FollowChip(),
+                              onTap: () {
+                               //String? idUserName= widget.userName;
+                               Suscription().getSuscripted(widget.userName);
+                               //print('----------------USER NAME FLOATING PROFILE------------------');
+                               //print(widget.userName);
+                              },
                             ),
                             const SizedBox(height: 10),
                             SingleChildScrollView(

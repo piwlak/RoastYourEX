@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:get/get.dart';
 import 'package:roastyourex/firebase/firebase_DB.dart';
+import 'package:roastyourex/firebase/userData.dart';
 import 'package:roastyourex/models/post_model.dart';
 import 'package:roastyourex/screens/profile/components/post_card.dart';
 import 'package:roastyourex/screens/profile/post_detail_page.dart';
@@ -21,6 +22,12 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     final user = FirebaseAuth.instance.currentUser;
+
+    User? firebaseUser = FirebaseAuth.instance.currentUser;
+    if (firebaseUser != null) {
+      UserData().saveUserData(firebaseUser);
+    }
+    
     return Scaffold(
         backgroundColor: Theme.of(context).colorScheme.background,
         appBar: AppBar(
