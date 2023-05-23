@@ -14,4 +14,12 @@ class Usuario {
     Usuario aux = Usuario(name: name, photoUrl: photoUrl, email: email);
     return aux;
   }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'name': name,
+      'email': email,
+      'photoUrl': photoUrl,
+    };
+  }
 }

@@ -23,79 +23,154 @@ class _SideMenuState extends State<SideMenu> {
   Widget build(BuildContext context) {
     final user = FirebaseAuth.instance.currentUser;
     Awesome awesome = Awesome();
-
-    return Scaffold(
-      body: Container(
-        width: 288,
-        height: double.infinity,
-        color: const Color(0xFF17203A),
-        child: SafeArea(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              InfoCard(
-                name: user!.displayName!,
-                mail: user.email!,
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 24, top: 32, bottom: 16),
-                child: Text(
-                  "Browse".toUpperCase(),
-                  style: Theme.of(context)
-                      .textTheme
-                      .titleMedium!
-                      .copyWith(color: Colors.white70),
+    if (user!.displayName != null) {
+      return Scaffold(
+        body: Container(
+          width: 288,
+          height: double.infinity,
+          color: const Color(0xFF17203A),
+          child: SafeArea(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                InfoCard(
+                  name: user!.displayName!,
+                  mail: user.email!,
                 ),
-              ),
-              ...sideMenus.map(
-                (menu) => SideMenuTile(
-                  menu: menu,
-                  riveonInit: (artboard) {
-                    // Let me show you if user click on the menu how to show the animation
-                    StateMachineController controller =
-                        RiveUtils.getRiveController(artboard,
-                            stateMachineName: menu.stateMachineName);
-                    menu.input = controller.findSMI("active") as SMIBool;
-                    // See as we click them it start animate
-                  },
+                Padding(
+                  padding: const EdgeInsets.only(left: 24, top: 32, bottom: 16),
+                  child: Text(
+                    "Browse".toUpperCase(),
+                    style: Theme.of(context)
+                        .textTheme
+                        .titleMedium!
+                        .copyWith(color: Colors.white70),
+                  ),
+                ),
+                ...sideMenus.map(
+                  (menu) => SideMenuTile(
+                    menu: menu,
+                    riveonInit: (artboard) {
+                      // Let me show you if user click on the menu how to show the animation
+                      StateMachineController controller =
+                          RiveUtils.getRiveController(artboard,
+                              stateMachineName: menu.stateMachineName);
+                      menu.input = controller.findSMI("active") as SMIBool;
+                      // See as we click them it start animate
+                    },
+                    press: () {
+                      menu.input!.change(true);
+                      Future.delayed(const Duration(seconds: 1), () {
+                        menu.input!.change(false);
+                      });
+                      setState(() {
+                        selectedMenu = menu;
+                      });
+                    },
+                    isActive: selectedMenu == menu,
+                  ),
+                ),
+                SideMenuTile(
+                  menu: sidemenu2,
+                  riveonInit: (artboard) {},
                   press: () {
-                    menu.input!.change(true);
-                    Future.delayed(const Duration(seconds: 1), () {
-                      menu.input!.change(false);
-                    });
-                    setState(() {
-                      selectedMenu = menu;
-                    });
+                    try {
+                      awesome
+                          .buildDialog(
+                              context,
+                              DialogType.INFO_REVERSED,
+                              'Confirmar',
+                              '¿Realmente desea cerrar la sesión?',
+                              '/login',
+                              AnimType.BOTTOMSLIDE,
+                              true)
+                          .show()
+                          .then((value) {});
+                    } catch (e) {
+                      e;
+                    }
                   },
-                  isActive: selectedMenu == menu,
+                  isActive: selectedMenu == sidemenu2,
                 ),
-              ),
-              SideMenuTile(
-                menu: sidemenu2,
-                riveonInit: (artboard) {},
-                press: () {
-                  try {
-                    awesome
-                        .buildDialog(
-                            context,
-                            DialogType.INFO_REVERSED,
-                            'Confirmar',
-                            '¿Realmente desea cerrar la sesión?',
-                            '/login',
-                            AnimType.BOTTOMSLIDE,
-                            true)
-                        .show()
-                        .then((value) {});
-                  } catch (e) {
-                    e;
-                  }
-                },
-                isActive: selectedMenu == sidemenu2,
-              ),
-            ],
+              ],
+            ),
           ),
         ),
-      ),
-    );
+      );
+    } else {
+      return Scaffold(
+        body: Container(
+          width: 288,
+          height: double.infinity,
+          color: const Color(0xFF17203A),
+          child: SafeArea(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                InfoCard(
+                  name: user!.email!,
+                  mail: user.email!,
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 24, top: 32, bottom: 16),
+                  child: Text(
+                    "Browse".toUpperCase(),
+                    style: Theme.of(context)
+                        .textTheme
+                        .titleMedium!
+                        .copyWith(color: Colors.white70),
+                  ),
+                ),
+                ...sideMenus.map(
+                  (menu) => SideMenuTile(
+                    menu: menu,
+                    riveonInit: (artboard) {
+                      // Let me show you if user click on the menu how to show the animation
+                      StateMachineController controller =
+                          RiveUtils.getRiveController(artboard,
+                              stateMachineName: menu.stateMachineName);
+                      menu.input = controller.findSMI("active") as SMIBool;
+                      // See as we click them it start animate
+                    },
+                    press: () {
+                      menu.input!.change(true);
+                      Future.delayed(const Duration(seconds: 1), () {
+                        menu.input!.change(false);
+                      });
+                      setState(() {
+                        selectedMenu = menu;
+                      });
+                    },
+                    isActive: selectedMenu == menu,
+                  ),
+                ),
+                SideMenuTile(
+                  menu: sidemenu2,
+                  riveonInit: (artboard) {},
+                  press: () {
+                    try {
+                      awesome
+                          .buildDialog(
+                              context,
+                              DialogType.INFO_REVERSED,
+                              'Confirmar',
+                              '¿Realmente desea cerrar la sesión?',
+                              '/login',
+                              AnimType.BOTTOMSLIDE,
+                              true)
+                          .show()
+                          .then((value) {});
+                    } catch (e) {
+                      e;
+                    }
+                  },
+                  isActive: selectedMenu == sidemenu2,
+                ),
+              ],
+            ),
+          ),
+        ),
+      );
+    }
   }
 }

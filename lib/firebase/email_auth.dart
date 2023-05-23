@@ -4,10 +4,8 @@ import 'package:flutter/material.dart';
 class EmailAuth {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
-  Future<bool> registerWithEmailAndPassword({
-    required String email,
-    required String password,
-  }) async {
+  Future<bool> registerWithEmailAndPassword(
+      {required String email, required String password}) async {
     try {
       final UserCredential userCredential = await _auth
           .createUserWithEmailAndPassword(email: email, password: password);
@@ -30,7 +28,24 @@ class EmailAuth {
     }
   }
 
-  Future<bool> signInWithEmailAndPassword({
+  Future<bool> sendEmailVerification(User user) async {
+    if (user != null && !user.emailVerified) {
+      await user.sendEmailVerification();
+      return true;
+    }
+    return false;
+  }
+
+  Future<bool> recoverPassword({required String email}) async {
+    try {
+      await _auth.sendPasswordResetEmail(email: email);
+      return true;
+    } on FirebaseAuthException catch (e) {
+      return false;
+    }
+  }
+
+  Future<UserCredential?> signInWithEmailAndPassword({
     required String email,
     required String password,
   }) async {
@@ -40,7 +55,7 @@ class EmailAuth {
       SnackBar(
         content: Text('User logged in: ${userCredential.user}'),
       );
-      return true;
+      return userCredential;
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         const SnackBar(
@@ -51,7 +66,7 @@ class EmailAuth {
           content: Text('Wrong password provided for that user.'),
         );
       }
-      return false;
+      return null;
     }
   }
 }

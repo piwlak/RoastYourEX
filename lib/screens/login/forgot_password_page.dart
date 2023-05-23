@@ -1,6 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:roastyourex/components/theme_helper.dart';
+import 'package:roastyourex/firebase/email_auth.dart';
 import 'package:roastyourex/screens/login/LoginPageMobile.dart';
 import 'package:roastyourex/widgets/header_widget.dart';
 import 'forgot_password_verification_page.dart';
@@ -14,6 +15,8 @@ class ForgotPasswordPage extends StatefulWidget {
 
 class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
   final _formKey = GlobalKey<FormState>();
+  EmailAuth auth = EmailAuth();
+  TextEditingController mail = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -88,6 +91,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                           children: <Widget>[
                             Container(
                               child: TextFormField(
+                                controller: mail,
                                 style: TextStyle(color: Colors.black),
                                 decoration: ThemeHelper().textInputDecoration(
                                     "Email", "Enter your email"),
@@ -125,11 +129,11 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                                 ),
                                 onPressed: () {
                                   if (_formKey.currentState!.validate()) {
+                                    auth.recoverPassword(email: mail.text);
                                     Navigator.pushReplacement(
                                       context,
                                       MaterialPageRoute(
-                                          builder: (context) =>
-                                              ForgotPasswordVerificationPage()),
+                                          builder: (context) => LoginPage()),
                                     );
                                   }
                                 },

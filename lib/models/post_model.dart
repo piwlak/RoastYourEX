@@ -55,19 +55,6 @@ class PostModel {
       comments: data['comments'] ?? 0,
     );
   }
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['userImage'] = this.userImage;
-    data['userName'] = this.userName;
-    data['location'] = this.location;
-    data['postTime'] = this.postTime;
-    data['description'] = this.description;
-    data['image'] = this.image;
-    data['likes'] = this.likes;
-    data['comments'] = this.comments;
-    return data;
-  }
 
   Map<String, dynamic> toMap() {
     return {

@@ -57,43 +57,6 @@ class PostDetailPage extends StatelessWidget {
                       image: NetworkImage(post.image!), fit: BoxFit.cover)),
             ),
           ),
-          const SizedBox(height: 10),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-                decoration: BoxDecoration(
-                    color: Colors.blue,
-                    borderRadius: BorderRadius.circular(25)),
-                child: const Text('Schedule a meeting',
-                    style: TextStyle(color: Colors.white, fontSize: 14)),
-              ),
-              Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-                decoration: BoxDecoration(
-                    color: Colors.grey.withOpacity(0.1),
-                    borderRadius: BorderRadius.circular(25)),
-                child: Text('Send a message',
-                    style: TextStyle(
-                        color: Theme.of(context).colorScheme.onBackground,
-                        fontSize: 14)),
-              ),
-              Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-                decoration: BoxDecoration(
-                    color: Colors.grey.withOpacity(0.1),
-                    borderRadius: BorderRadius.circular(25)),
-                child: Text('Details',
-                    style: TextStyle(
-                        color: Theme.of(context).colorScheme.onBackground,
-                        fontSize: 14)),
-              )
-            ],
-          ),
           const SizedBox(height: 30),
           Row(
             children: [

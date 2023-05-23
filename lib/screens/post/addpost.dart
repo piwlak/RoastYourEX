@@ -127,7 +127,6 @@ class _AddPostScreenState extends State<AddPostScreen> {
     Position position = await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.high);
     String pos = await _getCityAndCountry(position);
-    print(_user!.uid);
 
     PostModel post = PostModel(
       id: random.nextInt(999999),

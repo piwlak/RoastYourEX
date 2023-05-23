@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:roastyourex/firebase/flags_DB.dart';
@@ -31,18 +32,38 @@ class _ProfileCardState extends State<ProfileCard> {
               borderRadius: BorderRadius.circular(10)),
           child: Column(
             children: [
-              Text(
-                user!.displayName!,
-                style: TextStyle(
-                    color: Theme.of(context).colorScheme.onBackground,
-                    fontSize: 18,
-                    fontWeight: FontWeight.w600),
+              StreamBuilder<DocumentSnapshot>(
+                stream: FirebaseFirestore.instance
+                    .collection('users')
+                    .doc(user!.uid)
+                    .snapshots(),
+                builder: (context, snapshot) {
+                  if (snapshot.hasData && snapshot.data!.exists) {
+                    final userData =
+                        snapshot.data!.data() as Map<String, dynamic>;
+                    final name = userData['name'];
+                    return Text(
+                      '${name}',
+                      style: TextStyle(
+                          color: Theme.of(context).colorScheme.onBackground,
+                          fontSize: 18,
+                          fontWeight: FontWeight.w600),
+                    );
+                  } else {
+                    return Text(
+                      'Loading',
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.onBackground,
+                        fontSize: 18,
+                      ),
+                    );
+                  }
+                },
               ),
               const SizedBox(height: 10),
               GestureDetector(
                 child: FollowChip(),
-                onTap: () {
-                },
+                onTap: () {},
               ),
               const SizedBox(height: 10),
               Row(

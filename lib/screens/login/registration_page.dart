@@ -1,8 +1,12 @@
 import 'dart:io';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:roastyourex/components/theme_helper.dart';
+import 'package:roastyourex/entry_point.dart';
 import 'package:roastyourex/firebase/email_auth.dart';
-import 'package:roastyourex/screens/home/home_screen.dart';
+import 'package:roastyourex/models/usuarios.dart';
 import '../../widgets/header_widget.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
@@ -20,11 +24,18 @@ class _RegistrationPageState extends State<RegistrationPage> {
   final _formKey = GlobalKey<FormState>();
   TextEditingController mail = TextEditingController();
   TextEditingController password = TextEditingController();
+  TextEditingController name = TextEditingController();
+  TextEditingController lastname = TextEditingController();
+
   bool checkedValue = false;
   bool checkboxValue = false;
   File? _image;
   EmailAuth? auth = EmailAuth();
   GoogleAuth googleAuth = GoogleAuth();
+
+  User? _user = FirebaseAuth.instance.currentUser;
+  FirebaseStorage _storage = FirebaseStorage.instance;
+  FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   Future _pickImage(ImageSource source) async {
     try {
@@ -64,6 +75,27 @@ class _RegistrationPageState extends State<RegistrationPage> {
             );
           }),
     );
+  }
+
+  Future<void> _uploadUser() async {
+    String filename = '${_user!.uid}${DateTime.now()}.jpg';
+    Reference ref = _storage.ref().child(filename);
+    UploadTask uploadTask = ref.putFile(_image!);
+    TaskSnapshot snapshot = await uploadTask.whenComplete(() => null);
+    String downloadUrl = await snapshot.ref.getDownloadURL();
+
+    Usuario myuser = Usuario(
+        email: mail.text,
+        name: '${name.text} ${lastname.text}',
+        photoUrl: downloadUrl);
+
+    Map<String, dynamic> usertMap = myuser.toMap();
+
+    _firestore
+        .collection('users')
+        .add(usertMap)
+        .then((value) {})
+        .catchError((error) {});
   }
 
   @override
@@ -266,7 +298,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                                 ),
                               ),
                             ),
-                            onPressed: () {
+                            onPressed: () async {
                               if (_formKey.currentState!.validate()) {
                                 auth!
                                     .registerWithEmailAndPassword(
@@ -274,6 +306,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                                         password: password.text)
                                     .then((value) {
                                   if (value) {
+                                    _uploadUser();
                                     ScaffoldMessenger.of(context).showSnackBar(
                                       const SnackBar(
                                           backgroundColor: Colors.greenAccent,
@@ -282,7 +315,9 @@ class _RegistrationPageState extends State<RegistrationPage> {
                                     );
                                     Navigator.of(context).pushAndRemoveUntil(
                                         MaterialPageRoute(
-                                            builder: (context) => HomeScreen()),
+                                            builder: (context) => EntryPoint(
+                                                  number: 1,
+                                                )),
                                         (Route<dynamic> route) => false);
                                   } else {
                                     ScaffoldMessenger.of(context).showSnackBar(

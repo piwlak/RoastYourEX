@@ -1,3 +1,5 @@
+import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:roastyourex/components/theme_helper.dart';
@@ -18,9 +20,9 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   bool isLoading = false;
-  double _headerHeight = 200;
+  double _headerHeight = 275;
   final _formKey = GlobalKey<FormState>();
-  EmailAuth? auth = EmailAuth();
+  EmailAuth auth = EmailAuth();
   GoogleAuth googleAuth = GoogleAuth();
   GitAuth githubAuth = GitAuth();
   TextEditingController mail = TextEditingController();
@@ -140,26 +142,62 @@ class _LoginPageState extends State<LoginPage> {
                                     ),
                                     onPressed: () {
                                       if (_formKey.currentState!.validate()) {
-                                        auth!
+                                        auth
                                             .signInWithEmailAndPassword(
                                                 email: mail.text,
                                                 password: password.text)
                                             .then((value) {
-                                          if (value) {
-                                            Navigator.pushNamedAndRemoveUntil(
-                                              context,
-                                              'Home',
-                                              (route) => false,
-                                            );
-                                            ScaffoldMessenger.of(context)
-                                                .showSnackBar(
-                                              const SnackBar(
-                                                  behavior:
-                                                      SnackBarBehavior.floating,
-                                                  backgroundColor: Colors.green,
-                                                  content: Text(
-                                                      'Correcto, Bienvenido.')),
-                                            );
+                                          if (value != null) {
+                                            User aux = value.user!;
+                                            if (aux.emailVerified) {
+                                              Navigator.pushNamedAndRemoveUntil(
+                                                context,
+                                                'Home',
+                                                (route) => false,
+                                              );
+                                              ScaffoldMessenger.of(context)
+                                                  .showSnackBar(
+                                                const SnackBar(
+                                                    behavior: SnackBarBehavior
+                                                        .floating,
+                                                    backgroundColor:
+                                                        Colors.green,
+                                                    content: Text(
+                                                        'Correcto, Bienvenido.')),
+                                              );
+                                            } else {
+                                              AwesomeDialog(
+                                                context: context,
+                                                dialogType: DialogType.WARNING,
+                                                animType: AnimType.SCALE,
+                                                title: "Error",
+                                                desc:
+                                                    "Por favor verifica tu correo electronico",
+                                                btnOkText:
+                                                    'Reenviar correo de verificacion',
+                                                btnOkOnPress: () async {
+                                                  await auth
+                                                      .sendEmailVerification(
+                                                          aux)
+                                                      .then((value) {
+                                                    AwesomeDialog(
+                                                      context: context,
+                                                      dialogType:
+                                                          DialogType.SUCCES,
+                                                      animType:
+                                                          AnimType.RIGHSLIDE,
+                                                      title:
+                                                          "Correo enviado con éxito",
+                                                      desc:
+                                                          "El correo de verificación ha sido enviado con éxito, por favor verifique su bandeja de entrada",
+                                                      btnOkOnPress: () {},
+                                                      btnOkColor: Colors.green,
+                                                    ).show();
+                                                  });
+                                                },
+                                                btnOkColor: Colors.orangeAccent,
+                                              ).show();
+                                            }
                                           } else {
                                             ScaffoldMessenger.of(context)
                                                 .showSnackBar(
@@ -234,35 +272,6 @@ class _LoginPageState extends State<LoginPage> {
                                     },
                                   ),
                                 ),
-                                SizedBox(height: 15),
-                                Container(
-                                  child: SocialLoginButton(
-                                    borderRadius: 40,
-                                    buttonType: SocialLoginButtonType.github,
-                                    onPressed: () async {
-                                      isLoading = true;
-                                      githubAuth
-                                          .signInWithGitHub(context)
-                                          .then((value) {
-                                        if (value) {
-                                          Navigator.pushNamedAndRemoveUntil(
-                                            context,
-                                            'Home',
-                                            (route) => false,
-                                          );
-                                          isLoading = false;
-                                        } else {
-                                          isLoading = false;
-                                          SnackBar(
-                                            content: Text(
-                                                'Verifica tus credenciales'),
-                                          );
-                                        }
-                                        setState(() {});
-                                      });
-                                    },
-                                  ),
-                                )
                               ],
                             )),
                       ],
@@ -273,3 +282,4 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 }
+/* */
